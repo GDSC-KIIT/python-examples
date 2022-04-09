@@ -1,19 +1,22 @@
-import pyautogui as pyg
-import webbrowser as wb
-import datetime
+from selenium import webdriver
+import pyautogui as py
 import time
-import click
-import webbrowser as wb
 
-def format_date(x):
-    date_list = x.split(sep="-")
-    return list(map(int, date_list))
+passcode = "abcdef"
+meet_code = "756 922 0410"
 
-def format_time(x):
-    time_list = x.split(sep="-")
-    return list(map(int, time_list))
+def join(meet, password):
+    driver = webdriver.Chrome("/opt/homebrew/bin/chromedriver")
+    driver.get('https://zoom.us/join')
 
-def given_datetime(given_date, given_time):
+    time.sleep(5)
 
-    # YY, MM, DD, HH, MM
-    return datetime.datetime(given_date[2], given_date[1], given_date[0], given_time[0], given_time[1], given_time[2])
+    driver.find_element_by_xpath(
+        "//input[@id='join-confno']").send_keys(meet_code)
+
+    # time.sleep(2)
+    # driver.find_element_by_xpath("//a[@id='btnSubmit']").click()
+
+    # time.sleep(5)
+
+join(meet_code, passcode)
